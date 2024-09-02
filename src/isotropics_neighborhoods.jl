@@ -118,3 +118,73 @@ function all_equivalent_neighborhoods(neighborhood)
 
 end
 
+"""
+    are_neighborhoods_equivalent(neighborhood_1::Neighborhood, neighborhood_2::Neighborhood) -> Bool
+
+Determines if two neighborhood matrices are equivalent by checking if the first neighborhood is among the set of all equivalent neighborhoods of the second.
+
+# Arguments
+- `neighborhood_1`: A `Neighborhood` object containing a matrix `m` to be compared.
+- `neighborhood_2`: A `Neighborhood` object containing a matrix `m` to be compared.
+
+# Returns
+- `Bool`: `true` if `neighborhood_1` is equivalent to `neighborhood_2` by rotation or reflection, `false` otherwise.
+
+# Description
+This function checks if two neighborhoods are equivalent by generating all possible rotations and reflections of `neighborhood_2` and then checking if `neighborhood_1` is among those. Equivalence is defined by the neighborhood matrices being identical after a sequence of rotations or reflections.
+
+# Example
+```julia
+neighborhood1 = Neighborhood(rand(3, 3))
+neighborhood2 = Neighborhood(rand(3, 3))
+
+if are_neighborhoods_equivalent(neighborhood1, neighborhood2)
+    println("The neighborhoods are equivalent.")
+else
+    println("The neighborhoods are not equivalent.")
+end
+```
+"""
+function are_neighborhoods_equivalent(neighborhood_1::Neighborhood, neighborhood_2::Neighborhood)
+    return neighborhood_1 ∈ all_equivalent_neighborhoods(neighborhood_2)
+end 
+"""
+   generate_dict_isotropics_neighborhoods() -> Dict()
+
+Calculate and determine the mapping in Rule for each of the 512 neighborhoods, ensuring that two neighborhoods are considered equivalent if and only if their mappings are identical.
+
+# Returns
+- A `Dict` containing all mapping of 512 neighborhood in 101 values in Rule.
+
+
+## Internal Functions
+- `find_mapping_rule(neighborhood)`: Returns the mapping of the neighborhood if other neighborhood equivalent added in dict_mapping_rule
+
+# Example
+```julia
+isotropics_neighborhoods = generate_dict_isotropics_neighborhoods() # returns "pendiente"
+```
+"""
+function generate_dict_isotropics_neighborhoods()
+    set_of_added_neigh = Set()
+    dict_mapping_rule = Dict() # diccionario de donde una vencidad mepea a una regla de 101 valores
+
+    function find_mapping_rule(neighborhood)
+        for neigh in keys(dict_mapping_rule)
+            if are_neighborhoods_equal(neigh, neighborhood)
+                return dict_mapping_rule[neigh]
+            end 
+        end 
+    end 
+    for i in 1:512
+        neighborhood = generate_neighborhoood(i)
+        if neighborhood in set_of_added_neigh
+            dict_mapping_rule[neighborhood] = find_mapping_rule(neighborhood)
+        else
+            union!(set_of_added_neigh, all_equivalent_neighborhoods(neighborhood))
+            new_mapping_position = length(keys(dict_mapping_rule)) + 1
+            dict_mapping_rule[neighborhood] = new_mapping_position
+        end
+    end 
+    return dict_mapping_rule
+end 
