@@ -1,4 +1,4 @@
-module tomlgamelife
+module GameLife
 
 greet() = print("Hello World!")
 
