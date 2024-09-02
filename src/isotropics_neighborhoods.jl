@@ -94,7 +94,7 @@ equivalent_neighs = all_equivalent_neighborhoods(neighborhood) # returns Set(Nei
 """
 function all_equivalent_neighborhoods(neighborhood)
 
-    set_neigh = Set()
+    set_neigh::Set{Neighborhood} = Set()
 
     function rotate_90(mat)
         transpose(mat)[end:-1:1, :]
@@ -110,7 +110,7 @@ function all_equivalent_neighborhoods(neighborhood)
 
     for matrix in [neighborhood.m, reflect(neighborhood.m)]
         for rotation in all_rotations(matrix)
-            push!(set_neigh, rotation)
+            push!(set_neigh, Neighborhood(rotation))
         end
     end 
 
@@ -166,25 +166,32 @@ isotropics_neighborhoods = generate_dict_isotropics_neighborhoods() # returns "p
 ```
 """
 function generate_dict_isotropics_neighborhoods()
-    set_of_added_neigh = Set()
-    dict_mapping_rule = Dict() # diccionario de donde una vencidad mepea a una regla de 101 valores
+    set_of_added_neigh::Set{Neighborhood} = Set()
+    dict_mapping_rule::Dict{Neighborhood, Int} = Dict() # diccionario de donde una vencidad mepea a una regla de 101 valores
 
     function find_mapping_rule(neighborhood)
         for neigh in keys(dict_mapping_rule)
-            if are_neighborhoods_equal(neigh, neighborhood)
+            if are_neighborhoods_equivalent(neigh, neighborhood)
                 return dict_mapping_rule[neigh]
             end 
         end 
     end 
+
+    mapping = 0
+
     for i in 1:512
         neighborhood = generate_neighborhoood(i)
         if neighborhood in set_of_added_neigh
             dict_mapping_rule[neighborhood] = find_mapping_rule(neighborhood)
         else
             union!(set_of_added_neigh, all_equivalent_neighborhoods(neighborhood))
-            new_mapping_position = length(keys(dict_mapping_rule)) + 1
+            mapping += 1
+            new_mapping_position = mapping 
             dict_mapping_rule[neighborhood] = new_mapping_position
         end
     end 
     return dict_mapping_rule
 end 
+
+
+const Isotropics_Neighborhoods = generate_dict_isotropics_neighborhoods()
