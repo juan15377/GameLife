@@ -12,16 +12,14 @@ mutable struct Rule
     end 
 end 
 
-
-
-function Base.getindex(r::Rule, i::UInt) 
+function Base.getindex(r::Rule, i::Int) 
     if i > 102 || i < 0
         error("the index is not in 1:102")
     end
     return r.mapping[i]
 end
 
-function Base.setindex!(r::Rule, new_value::T, index::UInt) where {T<:Union{Int, Bool}}
+function Base.setindex!(r::Rule, new_value::T, index::Int) where {T<:Union{Int, Bool}}
     if index > 102 || index < 0
         error("the index not in 1:102")
     end
