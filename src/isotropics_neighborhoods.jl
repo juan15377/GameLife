@@ -117,7 +117,6 @@ function all_equivalent_neighborhoods(neighborhood)
     return set_neigh
 
 end
-
 """
     are_neighborhoods_equivalent(neighborhood_1::Neighborhood, neighborhood_2::Neighborhood) -> Bool
 
