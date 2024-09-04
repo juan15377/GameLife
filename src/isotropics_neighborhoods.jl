@@ -2,6 +2,16 @@
 mutable struct  Neighborhood 
     m::Matrix{Bool}
 end 
+
+# add methods getindex and setindex! for Neighborhood
+function Base.getindex(n::Neighborhood, i1::Int, i2::Int)
+    return n.m[i1, i2]
+end
+
+function Base.setindex!(n::Neighborhood, value::Bool, i1::Int, i2::Int)
+    n.m[i1, i2] = value
+end
+
 # Implementamos el método == para comparar dos objetos Neighborhood
 function Base.:(==)(a::Neighborhood, b::Neighborhood)
     return a.m == b.m
