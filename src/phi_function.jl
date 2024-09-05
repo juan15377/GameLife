@@ -21,3 +21,37 @@ function Φ(grid::Matrix{Bool}, rule::Rule)
     return new_grid
 end 
 
+# ! functions to help 
+
+# generar tablero 
+
+
+function generate_grid(size ,porcent)
+    grid=fill(false,size ,size)
+    f(x) = rand(1)[1] < porcent ? true : false
+    grid = map(x->f(x), grid)
+    return grid
+end
+
+generate_grid(100, .1)
+
+# ? cuadricular una matriz 
+
+function normalize_grid(grid::Matrix{Bool})
+    nums_rows,nums_cols = size(grid)
+    if nums_rows == nums_cols
+        return grid
+    end
+    if nums_rows > nums_cols
+        new_grid = fill(false, nums_rows, nums_cols + (nums_rows-nums_cols))
+        new_grid[1:nums_rows, 1:nums_cols] = grid
+        return new_grid
+    end
+
+    if nums_cols > nums_rows
+        new_grid = fill(false, nums_rows + (nums_cols - nums_rows), nums_rows)
+        new_grid[1:nums_rows, 1:nums_cols] = grid
+        return new_grid
+    end 
+end 
+
