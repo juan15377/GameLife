@@ -62,8 +62,5 @@ end
 
 const game_life_rule = generate_game_life_rule()
 
-A = rand(10, 10)
-@edit A[1, 1] = 10
-
 
 
