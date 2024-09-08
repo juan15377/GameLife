@@ -362,31 +362,22 @@ using .Φ_function
 using .Rules
 
 global rule = game_life_rule
-global grid = generate_grid(50, .2)
-global cell_size = 5
+global grid = generate_grid(200, .2)
+global cell_size = 3
 global BACKGROUND = RGB(0, 0, 0)
 
 n_rows, n_cols = size(grid)
 
-global k=10
 
 global cell_color = RGB(1, 1, 1)
 
 WIDTH = cell_size * n_rows + cell_size
 HEIGHT = cell_size * n_cols + cell_size
 
-global grid_0 = grid
-function setup(g::Game)
-    # Aumentar la velocidad del juego a 120 FPS
-    game.speed = 1
-end
-
 
 function actualiza()
-    if c%2 ==0
+    sleep(0.01)
     global grid = Φ(grid, rule)
-    end 
-    global c=c+1
 end
 
 
@@ -404,16 +395,4 @@ function draw(g::Game)
         end 
     end
 end 
-
-function on_keydown(key)
-    if key == Key.DOWN
-        global k=k+1
-    end
-end
-
-function on_keydown(key)
-    if key == Key.UP
-        global k=k-1
-    end
-end
 
