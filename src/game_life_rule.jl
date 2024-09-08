@@ -1,6 +1,13 @@
+
+module Rules 
+
+export game_life_rule
+
+
 include("isotropics_neighborhoods.jl")
+using.Isotropics
 
-
+export Rule
 mutable struct Rule
     mapping :: Array{Bool}
 
@@ -60,7 +67,9 @@ function generate_game_life_rule()
     return game_life_rule
 end 
 
+export game_life_rule
+
 const game_life_rule = generate_game_life_rule()
 
-
+end 
 

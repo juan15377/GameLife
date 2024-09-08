@@ -1,4 +1,13 @@
+
+module Φ_function 
+
+export Φ
+
 include("game_life_rule.jl")
+include("isotropics_neighborhoods.jl")
+
+using .Isotropics
+using .Rules
 
 function get_neighborhood(grid::Matrix{Bool}, x::Int, y::Int)
     rows, columns = size(grid)
@@ -25,6 +34,7 @@ end
 
 # generar tablero 
 
+export generate_grid
 
 function generate_grid(size ,porcent)
     grid=fill(false,size ,size)
@@ -33,7 +43,6 @@ function generate_grid(size ,porcent)
     return grid
 end
 
-generate_grid(100, .1)
 
 # ? cuadricular una matriz 
 
@@ -54,4 +63,7 @@ function normalize_grid(grid::Matrix{Bool})
         return new_grid
     end 
 end 
+
+end 
+
 

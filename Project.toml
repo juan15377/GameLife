@@ -1,4 +1,7 @@
 [deps]
 Colors = "5ae59095-9a9b-59fe-a467-6f913c188581"
 GameZero = "9da27670-f782-11e9-1da1-f53579315bfe"
+JLD = "4138dd39-2aa7-5051-a626-17a0bb65d9c8"
+JLD2 = "033835bb-8acc-5ee8-8aae-3f567f8a3819"
+Makie = "ee78f7c6-11fb-53f2-987a-cfe4a2b5a57a"
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"

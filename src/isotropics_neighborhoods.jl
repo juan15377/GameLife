@@ -1,7 +1,11 @@
 
+module Isotropics
+
+export Neighborhood
 mutable struct  Neighborhood 
     m::Matrix{Bool}
 end 
+
 
 # add methods getindex and setindex! for Neighborhood
 function Base.getindex(n::Neighborhood, i1::Int, i2::Int)
@@ -69,6 +73,8 @@ function generate_neighborhoood(indx::Integer)
     neighborhood = Neighborhood(reshape(binary_vector, (3,3)))
     return neighborhood
 end
+
+export generate_neighborhoood
 
 """
     all_equivalent_neighborhoods(neighborhood)
@@ -202,5 +208,8 @@ function generate_dict_isotropics_neighborhoods()
     return dict_mapping_rule
 end 
 
-
 const Isotropics_Neighborhoods = generate_dict_isotropics_neighborhoods()
+export Isotropics_Neighborhoods
+
+end
+
