@@ -10,7 +10,6 @@ mutable struct  Neighborhood
     m::Matrix{Bool}
 end 
 
-
 # add methods getindex and setindex! for Neighborhood
 function Base.getindex(n::Neighborhood, i1::Int, i2::Int)
     return n.m[i1, i2]
